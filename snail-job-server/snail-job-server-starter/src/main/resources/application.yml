@@ -1,57 +1,31 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8088}
   servlet:
     context-path: /snail-job
 
 spring:
+  application:
+    name: snail-job
+  threads:
+    virtual:
+      enabled: true
   main:
     banner-mode: off
   profiles:
-    active: dev
+    active: ${PROFILE:dev}
   datasource:
     name: snail_job
-    ## mysql
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/snail_job?useSSL=false&characterEncoding=utf8&useUnicode=true
-    username: root
-    password: root
-    ## postgres
-    #    driver-class-name: org.postgresql.Driver
-    #    url: jdbc:postgresql://localhost:5432/snail_job?useUnicode=true&characterEncoding=utf8&useSSL=true&autoReconnect=true&reWriteBatchedInserts=true
-    #    username: root
-    #    password: root
-    ## Oracle
-    #    driver-class-name: oracle.jdbc.OracleDriver
-    #    url: jdbc:oracle:thin:@//localhost:1521/XEPDB1
-    #    username: snail_job
-    #    password: SnailJob
-    ## SQL Server
-    #    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    #    url: jdbc:sqlserver://localhost:1433;DatabaseName=snail_job;SelectMethod=cursor;encrypt=false;rewriteBatchedStatements=true
-    #    username: SA
-    #    password: SnailJob@24
-    ## mariadb
-    #    driver-class-name: org.mariadb.jdbc.Driver
-    #    url: jdbc:mariadb://localhost:3308/snail_job?useSSL=false&characterEncoding=utf8&useUnicode=true
-    #    username: root
-    #    password: root
-    ## dm8
-    #    driver-class-name: dm.jdbc.driver.DmDriver
-    #    url: jdbc:dm://127.0.0.1:5236
-    #    username: SYSDBA
-    #    password: SYSDBA001
-    # kingbase
-    #    driver-class-name: com.kingbase8.Driver
-    #    url: jdbc:kingbase8://localhost:54321/test
-    #    username: root
-    #    password: root
+    driver-class-name: ${DATASOURCE-DRIVER-CLASS-NAME:org.postgresql.Driver}
+    url: jdbc:${DATASOURCE_PLATFORM:postgresql}://${DATASOURCE_HOST:postgresql}:${DATASOURCE_PORT:5432}/${DATASOURCE_DATABASE:snail_job}?${DATASOURCE_PARAM:tcpKeepAlive=true&reWriteBatchedInserts=true&ApplicationName=snail-job&useSSL=false&reWriteBatchedInserts=true&stringtype=unspecified}
+    username: ${DATASOURCE_USERNAME:root}
+    password: ${DATASOURCE_PASSWORD:laokou123}
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
-      connection-timeout: 30000
+      connection-timeout: 180000
       minimum-idle: 5
       maximum-pool-size: 100
       auto-commit: true
-      idle-timeout: 30000
+      idle-timeout: 180000
       pool-name: snail_job
       max-lifetime: 1800000
   web:
@@ -72,9 +46,6 @@ mybatis-plus:
 
 logging:
   config: classpath:logback-boot.xml
-#    level:
-#    ## 方便调试 SQL
-#        com.aizuda.snailjob.template.datasource.persistence.mapper: debug
 
 snail-job:
   retry-pull-page-size: 1000 # 拉取重试数据的每批次的大小
