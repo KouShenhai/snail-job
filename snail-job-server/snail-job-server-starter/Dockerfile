@@ -13,7 +13,7 @@
 #  * See the License for the specific language governing permissions and
 #  * limitations under the License.
 #  */
-FROM docker.io/domenicopiol/builder-graalvm21:latest
+FROM bellsoft/liberica-openjdk-debian:17-cds
 LABEL maintainer="laokou"
 LABEL description="snail-job"
 COPY target/snail-job-server.jar app.jar
