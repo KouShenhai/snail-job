@@ -15,7 +15,7 @@ spring:
     active: ${PROFILE:dev}
   datasource:
     name: snail_job
-    driver-class-name: ${DATASOURCE-DRIVER-CLASS-NAME:org.postgresql.Driver}
+    driver-class-name: ${DATASOURCE_DRIVER_CLASS_NAME:org.postgresql.Driver}
     url: jdbc:${DATASOURCE_PLATFORM:postgresql}://${DATASOURCE_HOST:postgresql}:${DATASOURCE_PORT:5432}/${DATASOURCE_DATABASE:snail_job}?${DATASOURCE_PARAM:tcpKeepAlive=true&reWriteBatchedInserts=true&ApplicationName=snail-job&useSSL=false&reWriteBatchedInserts=true&stringtype=unspecified}
     username: ${DATASOURCE_USERNAME:root}
     password: ${DATASOURCE_PASSWORD:laokou123}
