@@ -17,5 +17,5 @@ FROM docker.io/domenicopiol/builder-graalvm21:latest
 LABEL maintainer="laokou"
 LABEL description="snail-job"
 COPY target/snail-job-server.jar app.jar
-EXPOSE 8088
+EXPOSE 8088 17888
 CMD java $JVM_OPTS -jar app.jar > /dev/null 2>&1
