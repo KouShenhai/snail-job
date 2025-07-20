@@ -13,9 +13,10 @@
 #  * See the License for the specific language governing permissions and
 #  * limitations under the License.
 #  */
-FROM bellsoft/liberica-openjdk-debian:17-cds
+FROM docker.io/domenicopiol/builder-graalvm21:latest
 LABEL maintainer="laokou"
 LABEL description="snail-job"
-COPY target/snail-job-server.jar app.jar
+COPY target/snail-job-server-exec.jar app.jar
+COPY arthas.jar arthas.jar
 EXPOSE 8088 17888
 CMD java $JVM_OPTS -jar app.jar > /dev/null 2>&1
